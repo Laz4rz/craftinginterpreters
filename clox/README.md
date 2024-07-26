@@ -98,4 +98,24 @@ And finally, we need to manually add additional bytes to the malloc for our node
 node *n = malloc(sizeof(node) + 12 + 1); 
 ```
 
-Oooof. Easy, but a lot of hops. 
+Oooof. Easy, but a lot of hops. If we now want to add functions working on this list, we can do that so:
+
+```c
+void find_in_list(node *head, char *string_find)
+{
+        printf("Looking for: %s\n", string_find);
+        node *current = head;
+        while (current != NULL)
+        {
+                if (strcmp(current->string, string_find) == 0)
+                {
+                        printf("Found it! Current string: %s\n", current->string);
+                }
+                node *next = current->next;
+                current = next;
+        }
+
+}
+```
+
+We again used a `string.h` function `strcmp` to compare strings. The overall structure of this function follows what every function for this structure should implement, you iterate and do something. Other functions from the task are looking very similar, and can be found in the `doublelinkedlist.c`.
