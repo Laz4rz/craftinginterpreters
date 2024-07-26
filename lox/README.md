@@ -14,7 +14,7 @@ public class HelloWorld {
 }
 ```
 
-Now you can call `javac` (`javac HelloWorld.java`) on it, which I believe stand for Java Compiler. You may be a little surprised that it didn't create an executable, but a `HelloWorld.class` file. 
+Now you can call `javac` (`javac HelloWorld.java`) on it, which I believe stands for Java Compiler. You may be a little surprised that it didn't create an executable, but a `HelloWorld.class` file. 
 
 This is because (Claude 3.5 speaking):
 
