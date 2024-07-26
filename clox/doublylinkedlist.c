@@ -19,6 +19,46 @@ typedef struct node
 }
 node;
 
+
+void find_in_list(node *head, char *string_find)
+{
+	printf("Looking for: %s\n", string_find);
+	node *current = head;
+	while (current != NULL)
+	{
+		if (strcmp(current->string, string_find) == 0)
+		{
+			printf("Found it! Current string: %s\n", current->string);
+		}
+		node *next = current->next;
+		current = next;
+	}
+
+}
+
+void print_list(node *head)
+{
+	node *current = head;
+	while (current != NULL)
+	{
+		node *next = current->next;
+		printf("Current string: %s\n", current->string);
+		current = next;
+	}
+}
+
+void free_list(node *head)
+{
+	node *current = head;
+	while (current != NULL)
+	{
+		node *next = current->next;
+		printf("Freeing %p\n", current);
+		free(current);
+		current = next;
+	}
+}
+
 int main(void)
 {	
 	// initialize a garbage pointer to node structre
@@ -61,8 +101,16 @@ int main(void)
 	printf("List points to number: %s\n", list->string);
 	printf("List points to addres: %p\n", list);
 
+	// print list function
+	print_list(list);
+
+	// find in list function
+	char *find_string = "Hello world!";
+	find_in_list(list, find_string);
+
 	// free the memory allocated for n with malloc before
-	free(n);
+	// free(n);
+	free_list(list);
 }
 
 
