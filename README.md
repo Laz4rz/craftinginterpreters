@@ -170,17 +170,9 @@ The important distinction is between arguments, and parameters. They are not the
 - Closure
 
 The functions in Lox are going to be first class citizens: they can be passed around, stored in variables, can be referenced etc. So this works:
-
-```
-fun addPair(a, b) {
-    return a + b;
-}
-be compiled.
-Since Lox is dynamically typed, this distinction isn’t meaningful. A function declaration fully specifies the function including its body.
-  See, I told you nil would sneak in when we weren’t looking.
  
  
- 
+``` 
 fun identity(a) {
     return a;
   }
