@@ -123,4 +123,100 @@ Haven't really found a single best answer, that I would really like. In general 
 
 Probably because it allows the best of both worlds? You can get a fast compiled version of the program, or use an interpreter to iterate over ideas fast, with dynamic typing.
 
+## Chapter 3 "The Lox Language"
+
+We go through an overview of how the Lox (Java implementation) will look like. 
+
+- Dynamic Typing
+
+Our language will not be checking types staticaly, ie. you will only know if you have a type problem if you encounter it during runtime. Can interpreted language even have static type checking? Yes, for example if you type everything in Python, you can then use something like mypy to staticaly check the types, before you go into interpreter. In typescript — i think — it happens during the transpilation from typescript to javascript, only then you interpret the produced javascript code. Dynamic typing means we don't specify types, it happens automatically.  
+
+- Automatic Memory Management
+
+Both our languages will be using Garbage Collection. Reference counting would be easier, and is what usually languages like Python start with. Though later they move to garbe collecting. Reference counting uses a counter for each allocated memory, everytime the reference to an object is created the counter goes up, and goes down when reference is removed. When it reaches 0, the memory is automatically freed. Garbage collection is more hustle, but we will implement it, cause it's better and more fun. 
+
+- Types
+
+We will have simple and dynamic types. We've already talked about dynamic typing. Types are the smallest, atomic part of the language (atoms are not the smallest particles, but you get the gist). The types we will use: Boolean, Number (double precision float for all numbers), String, Nil (Java's null). 
+
+- Expressions
+
+If types are atomes, expressions are molecules. We will support: arithmetic (+, -, /, *), comparison and equality (<, <=, >, >=, ==), and logical expressions (!, and, or). Operators are mostly infix (between atoms) or could be also prefix (in front of an atom), some are both (negative/sub operator). A careful reader will see that we skipped some popular operators, ie. modulo.
+
+- Statements
+
+Expressions produce values, statements don't, they change some state, read input or produce output. One of the statements in Lox will be `print`. Yeah, print is not a function here, which means we can print stuff before we have working function calling. 
+
+- Variables
+
+Turns out `var` used to define variables is also a statement. We can either define a variable with some value, or empty that starts with `nil` assigned. 
+
+- Control Flow
+
+Control flow is all the tools used to a). skip some code, b). repeat some code. We will use: if, while, andfor loops. 
+
+- Functions
+
+Function calls are typical here — `function()`. When we do it without parenthesis, it will only reference the function, without calling it. 
+
+```
+fun printSum(a, b) {
+    print a+b;
+}
+```
+
+The important distinction is between arguments, and parameters. They are not the same. Arguments is the values we pass to a function, parameters are the variables inside the function, that hold these values. If a function doesn't explicitly return something, it returns `nil` — one of the useful cases of having a nil.
+
+- Closure
+
+The functions in Lox are going to be first class citizens: they can be passed around, stored in variables, can be referenced etc. So this works:
+
+```
+fun addPair(a, b) {
+    return a + b;
+}
+be compiled.
+Since Lox is dynamically typed, this distinction isn’t meaningful. A function declaration fully specifies the function including its body.
+  See, I told you nil would sneak in when we weren’t looking.
+ 
+ 
+ 
+fun identity(a) {
+    return a;
+  }
+  print identity(addPair)(1, 2); // Prints "3".
+```
+
+Since function definitions are also statements, you can place one function in the other.
+
+```
+ fun outerFunction() {
+    fun localFunction() {
+      print "I'm local!";
+    }
+    localFunction();
+  }
+```
+
+Turns out this also works:
+
+```
+
+  fun returnFunction() {
+    var outside = "outside";
+    fun inner() {
+      print outside;
+    }
+    return inner;
+  }
+  var fn = returnFunction();
+  fn();
+```
+
+This is an often used concept. `inner` is a closure, it means it has access to variables in the scope that encompasses it. With the typical understanding of scope, we would expect the function to only have access to variables that are defined in it, with closurese, function have access to variables in one scope higher. 
+
+- Classes 
+
+Why does Lox have classes? We have first class citizen functions, closures, block scopes, we are almost functional. Yet, we implement classes? We are smart about it. We aren't going into all inheritance haze. 
+
 
