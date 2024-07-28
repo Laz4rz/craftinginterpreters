@@ -1,11 +1,11 @@
 ## Chapter 1
 
-#### Tasks:
+#### Challenges:
 Are done inside lox/clox directories!
 
 ## Chapter 2
 
-#### Tasks:
+#### Challenges:
 1. Pick an open source implementation of a language you like. Download the source code and poke around in it. Try to find the code that implements the scanner and parser. Are they hand-written, or generated using tools like Lex and Yacc? ( .l or .y files usually imply the latter.)
 
 Of course I picked Zig. 
@@ -209,4 +209,94 @@ This is an often used concept. `inner` is a closure, it means it has access to v
 
 Why does Lox have classes? We have first class citizen functions, closures, block scopes, we are almost functional. Yet, we implement classes? We are smart about it. We aren't going into all inheritance haze. 
 
+```
+Class-based Programming
+Languages: Java, C#, Python.
+Structure: Objects are instances of classes. Classes define the structure and behavior for objects.
+Features:
+- Inheritance: Hierarchical, class-based.
+- Encapsulation: Groups data and methods into classes.
+- Abstraction: Uses abstract classes and interfaces.
+- Polymorphism: Objects of different classes can be treated as instances of a common superclass.
 
+Prototype-based Programming
+Languages: JavaScript.
+Structure: Objects are cloned from other objects (prototypes). Each object can serve as a prototype.
+Features:
+- Inheritance: Direct from other objects via prototypes.
+- No Classes: Uses flexible, cloneable prototypes instead of rigid classes.
+- Dynamic Modification: Objects can be altered after creation.
+- Flexibility: High, with dynamic, on-the-fly alterations to object structures.
+
+Key Differences
+- Class Structure: Class-based uses rigid class definitions; prototype-based uses mutable prototypes.
+- Inheritance: Class-based has fixed hierarchical inheritance; prototype-based uses a more flexible, object-based inheritance chain.
+- Object Creation: Class-based constructs new instances through class constructors; prototype-based creates new objects by cloning and extending existing ones.
+```
+
+In class based, the instances got to look stuff up in classes and classes these classes inherit from. 
+
+![alt text](classbased.png)
+
+In prototype based, the objects inherit from (delegate to) objects! Turns out people still use them as classes in prototype based languages like JavaScript. 
+
+![alt text](prototypebased.png)
+
+Function definition in Lox is as follows:
+
+```
+class Breakfast {
+  init(meat, bread) {
+    this.meat = meat;
+    this.bread = bread
+  }
+  cook() {
+    print "Eggs a-fryin'!";
+  }
+
+  serve(who) {
+    print "Enjoy your breakfast, " + who + ".";
+  }
+}
+
+var myBreakfast = Breakfast("bacon", "toast");
+myBreakfast.drink = "water";
+myBreakfast.serve("Reader");
+```
+
+We skip the `fun` keyword. Classes are also first class citizens, meaning they can be passed as values to variables and functions. Classes are instantiated using a self function call, in Lox the class itself is a factory function for instances. 
+
+- Inheritance 
+
+Lox supports inheritance with `<` operator.
+
+```
+class Brunch < Breakfast {
+  init(meat, bread, drink) {
+    super.init(meat, bread);
+    this.drink = drink;
+  }
+}
+```
+
+Both the subclass (derived), and it's base (super) class want to init their init functions, access atributes etc, to distinguish we use `this` and `super`.
+
+Lox is not pure object oriented PL, in the sense that the primitive values like numbers and Booleans are not instances of classes. 
+
+- Standard Library
+
+Standard Library is the set of functionality that is implemented directly in the interpreter, and that all user-defined behavior is built on top of. Well this house is not abundant. We are only going to have `print` and `clock()`, yeah that's it. Although it would be fun to add some I/O or user input. 
+
+#### Challenges:
+
+1. Write some sample Lox programs and run them (you can use the implementations of Lox in my repository). Try to come up with edge case behavior I didn’t specify here. Does it do what you expect? Why or why not?
+
+Didn't really find any edge case, but I wasn't really looking — what would I look for? Like I've got no idea. Downloaded the interpreters, compiled them, and run a silly helloworld.
+
+2. This informal introduction leaves a lot unspecified. List several open questions you have about the language’s syntax and semantics. What do you think the answers should be?
+
+TODO
+
+3. Lox is a pretty tiny language. What features do you think it is missing that would make it annoying to use for real programs? (Aside from the standard library, of course.)
+
+Multithreading I guess? 
