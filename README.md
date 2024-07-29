@@ -295,8 +295,16 @@ Didn't really find any edge case, but I wasn't really looking — what would I l
 
 2. This informal introduction leaves a lot unspecified. List several open questions you have about the language’s syntax and semantics. What do you think the answers should be?
 
-TODO
+What happens when both class method and attribute are given the same name?
+
+What happens when I don't manually initialize `super`?
+
+Does closure work with global scope? Since it's suppossed to catch encompasing scope, I guess it should? 
 
 3. Lox is a pretty tiny language. What features do you think it is missing that would make it annoying to use for real programs? (Aside from the standard library, of course.)
 
-Multithreading I guess? 
+Multithreading I guess?
+
+# Building JLox 
+
+
