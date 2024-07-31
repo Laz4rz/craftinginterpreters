@@ -1,4 +1,4 @@
-## Lox
+# Lox
 
 That's gonna be a long journey. Yeah, I have no Java experience. At all. Python? Fluent. C? Not bad. Scala? A little. Zig? Ziglings. Java? None, nada, null. 
 
@@ -62,3 +62,11 @@ Execute its main method
 ```
 
 Got it? Noice. It works for me btw.
+
+## Structure and building
+
+Moved all the stuff from lying randomly in Lox, to src/<following the package structure>, which turned to: src/com/craftinginterpreters/lox
+
+Inside `src` is a naive build tool, rebuilding the whole insides of /src/..., and putting the output classes inside ../bin.
+
+
